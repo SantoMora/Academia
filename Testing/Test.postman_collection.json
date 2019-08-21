@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "dc3c32de-37d5-4a28-ad36-c77b1fbf0f12",
+		"name": "Test",
+		"description": "Primera Practica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LIST USERS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bfc21e0e-91c8-48ea-b0df-068ff77261a7",
+						"exec": [
+							"let fn = pm.iterationData.get(\"first_name\");",
+							"let id = pm.iterationData.get(\"id\");",
+							"",
+							"var jsonData;",
+							"jsonData = pm.response.json();",
+							"//console.log(\"Data: \",jsonData.data);",
+							"let i;",
+							"console.log(\"iteration: \",pm.info.iteration);",
+							"",
+							"console.log(\"Request: \",fn)",
+							"console.log(\"Data: \",jsonData.data[pm.info.iteration][\"first_name\"])  ",
+							"pm.test(\"Test first_name\", function () {",
+							"    if(id == jsonData.data[pm.info.iteration][\"id\"]){",
+							"        pm.expect(jsonData.data[pm.info.iteration][\"first_name\"]).to.eql(fn);",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

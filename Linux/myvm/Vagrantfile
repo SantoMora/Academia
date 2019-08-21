@@ -1,0 +1,13 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "ws" do |ws|
+    ws.vm.box = "generic/centos7"
+    ws.vm.hostname = "workstation"
+    ws.vm.network :private_network, ip: "10.0.0.50"
+  end
+  config.vm.define "svr" do |svr|
+    svr.vm.box = "generic/centos7"
+    svr.vm.hostname = "server"
+    svr.vm.network :private_network, ip: "10.0.0.200"
+    svr.vm.network "forwarded_port", guest: 80, host: 8080
+  end
+end
